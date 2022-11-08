@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
@@ -27,8 +28,13 @@ class MainActivity : ComponentActivity() {
                     .fillMaxWidth()
                     .border(2.dp, Color.Magenta)
                     .padding(20.dp)
+                    .border(2.dp, Color.Blue)
+                    .padding(20.dp)
+                    .border(2.dp, Color.DarkGray)
+                    .padding(25.dp)
             ) {
-                Text("Hello",Modifier.offset((-50).dp, (80).dp))
+                Text("Hello",Modifier.offset((60).dp, (80).dp)
+                    .clickable {  })
                 Text("World")
                 Text("Hello")
                 Text("World")
