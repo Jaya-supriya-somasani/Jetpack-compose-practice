@@ -18,19 +18,31 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Greetings(name = "priya")
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Yellow),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text("Hello")
+                Text("World")
+                Text("Hello")
+                Text("World")
+                Text("jaya")
+            }
 
         }
     }
 }
 
 @Composable
-fun Greetings(name:String){
+fun Greetings(name: String) {
     Text(text = "hello $name")
 }
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview(){
+fun DefaultPreview() {
     Greetings(name = "Jaya")
 }
