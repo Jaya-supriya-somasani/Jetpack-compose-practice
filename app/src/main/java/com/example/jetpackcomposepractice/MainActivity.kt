@@ -28,3 +28,9 @@ class MainActivity : ComponentActivity() {
 fun Greetings(name:String){
     Text(text = "hello $name")
 }
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview(){
+    Greetings(name = "Jaya")
+}
