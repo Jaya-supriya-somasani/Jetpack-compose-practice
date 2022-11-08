@@ -18,22 +18,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Column (modifier=Modifier
-                .width(300.dp)
-                .height(200.dp)
-                .background(Color.Cyan),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceAround
-                ){
-                Text(text = "Uma")
-                Text(text = "Janvi")
-            }
+            Greetings(name = "priya")
 
         }
     }
 }
-//@Preview(showBackground = true, backgroundColor = 0xffffffaa)
-//@Composable
-//fun starting(){
-//    Text(text = "Jaya")
-//}
+
+@Composable
+fun Greetings(name:String){
+    Text(text = "hello $name")
+}
