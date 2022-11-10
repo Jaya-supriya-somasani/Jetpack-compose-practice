@@ -7,9 +7,8 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,63 +30,51 @@ class MainActivity : ComponentActivity() {
             val painter = painterResource(id = R.drawable.tree)
             val desc = "Image card view"
             val title = "This is the sample card view with image"
-            Column() {
+            val names = listOf("jaya", "priya", "uma", "geetha","Seetha")
+            MaterialTheme.typography
+            Column {
                 Row {
-                    Column(horizontalAlignment = Alignment.End) {
+                    Column(
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth(0.5f)
                                 .padding(16.dp)
                         ) {
                             ImageCard(painter = painter, contentDescription = desc, title = title)
-
                         }
-                    }
-                    Column(
-                        modifier = Modifier
-                            .padding(20.dp)
-                            .background(Color.LightGray)
-                            .border(2.dp, Color.Magenta)
-                            .padding(20.dp)
-                            .border(2.dp, Color.Blue)
-                            .padding(20.dp)
-                            .border(2.dp, Color.DarkGray)
-                            .padding(25.dp)
-                    ) {
-
-                        Text("Hello",
+                        Spacer(modifier = Modifier.width(60.dp))
+                        Text(text = "image description",
                             Modifier
-                                .offset((60).dp, (80).dp)
+                                .padding(start = 40.dp)
                                 .clickable { })
+                    }
+                    Column(modifier = Modifier.fillMaxWidth()) {
+
+                        Text("Hello", Modifier.clickable { })
                         Text("World")
                         Text("Hello")
                         Text("World")
                         Text("jaya")
                     }
                 }
-                Row(verticalAlignment = Alignment.Bottom) {
-                    Column(
-                        modifier = Modifier
-                            .padding(20.dp)
-                            .background(Color.LightGray)
-                            .border(2.dp, Color.Magenta)
-                            .padding(20.dp)
-                            .border(2.dp, Color.Blue)
-                            .padding(20.dp)
-                            .border(2.dp, Color.DarkGray)
-                            .padding(25.dp)
-                    ) {
-
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column() {
+//c1
                         Text("Hello",
-                            Modifier
-                                .offset((60).dp, (80).dp)
-                                .clickable { })
+                            Modifier.clickable { })
                         Text("World")
                         Text("Hello")
                         Text("World")
                         Text("jaya")
                     }
                     Column {
+                        //c2
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth(1f)
@@ -104,30 +91,34 @@ class MainActivity : ComponentActivity() {
                         painter = painterResource(id = R.drawable.tree),
                         contentDescription = "sample image 2",
                         modifier = Modifier
-                            .wrapContentSize()
+                            .size(100.dp)
                             .clip(CircleShape)
                             .border(
                                 BorderStroke(2.dp, Color.Red),
                                 CircleShape
-                            )
+                            ),
+                        contentScale = ContentScale.Crop
                     )
+                    Greetings(name = names)
 
                 }
+                UserName()
             }
-
         }
     }
 }
 
 @Composable
-fun Greetings(name: String) {
-    Text(text = "hello $name")
+fun Greetings(name: List<String>) {
+    for (user in name) {
+        Text(text = "hello $user", modifier = Modifier.padding(start = 20.dp))
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    Greetings(name = "Jaya")
+//    Greetings(name = "Jaya")
 }
 
 @Composable
@@ -145,6 +136,8 @@ fun ImageCard(
         Box(modifier = Modifier.height(180.dp)) {
             Image(
                 painter = painter,
+                modifier = Modifier
+                    .fillMaxSize(),
                 contentDescription = contentDescription,
                 contentScale = ContentScale.Crop
             )
@@ -167,10 +160,30 @@ fun ImageCard(
                 Text(title, style = TextStyle(color = Color.Black, fontSize = 12.sp))
 
             }
-
-
         }
+    }
+}
 
+
+// here we are using stateful for remembering the user name and we created outline text box and we can change the colors of label text and outline box color when we focused and unfocused
+@Composable
+fun UserName() {
+    Column(modifier = Modifier.padding(16.dp)) {
+        var name by remember { mutableStateOf("") }
+        Text(
+            text = "Hello, $name!",
+            modifier = Modifier.padding(bottom = 8.dp),
+            style = MaterialTheme.typography.h5
+        )
+        OutlinedTextField(
+            value = name,
+            onValueChange = { name = it },
+            label = { Text("Name")},
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color.Black,
+                unfocusedBorderColor = Color.Red, focusedLabelColor = Color.Magenta, unfocusedLabelColor = Color.Red
+            )
+        )
     }
 
 }
